@@ -12,30 +12,31 @@ import RealityKit
 struct ARView: View {
     var selectedObject: String
     @State private var isQRScanned = false
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        VStack {
+        ZStack {
             ARViewContainer(selectedObject: selectedObject)
-                .edgesIgnoringSafeArea(.all)
+                .edgesIgnoringSafeArea(.all) // Full-screen AR view
 
-            if isQRScanned {
-                Text("Object \(selectedObject) found in AR!")
+            VStack {
+                Spacer()
+
+                Text("Looking for: \(selectedObject)")
                     .padding()
-                    .background(Color.green.opacity(0.7))
+                    .background(Color.black.opacity(0.5))
                     .cornerRadius(10)
                     .foregroundColor(.white)
-            } else {
-                Text("Scan the QR Code to find your object.")
-                    .padding()
-            }
 
-            Button("Exit AR") {
-                // Action to exit AR and return to the landing screen
+                Button("Exit AR") {
+                    dismiss()
+                }
+                .padding()
+                .background(Color.red)
+                .foregroundColor(.white)
+                .cornerRadius(10)
             }
             .padding()
-            .background(Color.red)
-            .foregroundColor(.white)
-            .cornerRadius(10)
         }
     }
 }

@@ -12,16 +12,17 @@ struct LandingView: View {
     @State private var allItems: [String] = []
     @State private var filteredItems: [String] = []
     @State private var selectedItem: String?
+    @State private var navigateToAR = false
 
     var body: some View {
         NavigationView {
-            VStack() {
+            VStack(spacing: 20) {
                 Text("ctrl-F")
                     .font(.system(size: 36, weight: .bold, design: .monospaced))
                     .bold()
 
                 Text("find what you're looking for, in real life")
-                    .font(.system(size: 16, weight: .light, design: .monospaced))
+                    .font(.system(size: 14, weight: .light, design: .monospaced))
                     .foregroundColor(.gray)
                     .italic()
                     .multilineTextAlignment(.center)
@@ -30,6 +31,7 @@ struct LandingView: View {
                     filterItems()
                 })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
                 .padding()
 
                 List(filteredItems, id: \.self) { item in
@@ -40,25 +42,32 @@ struct LandingView: View {
                         Text(item)
                     }
                 }
-                .frame(height: min(200, CGFloat(filteredItems.count * 44)))
+                .frame(height: min(300, CGFloat(filteredItems.count * 44)))
+                .background(Color("bgColor"))
 
-                if let selected = selectedItem {
-                    NavigationLink(destination: ARView(selectedObject: selected)) {
-                        Text("Find in AR")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
+                NavigationLink(destination: ARView(selectedObject: selectedItem ?? "")) {
+                    Text("Find in AR")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
+                .opacity(selectedItem == nil ? 0.5 : 1.0)  // ✅ Reduce opacity when disabled
+                .allowsHitTesting(selectedItem != nil)  // ✅ Prevents tap when no item is selected
             }
             .padding()
             .onAppear {
                 fetchObjectList()
             }
+            .fullScreenCover(isPresented: $navigateToAR) {
+                if let selected = selectedItem {
+                    ARView(selectedObject: selected)  // ✅ Ensure it's using ARView
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .background(Color("bgColor").edgesIgnoringSafeArea(.all))
         }
-        .background(Color("bgColor"))
     }
 
     private func filterItems() {
