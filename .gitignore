@@ -1,0 +1,82 @@
+# Xcode
+.DS_Store
+DerivedData/
+*.xcconfig
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.perspective
+*.mode1v3
+*.mode2v3
+*.xcuserstate
+project.xcworkspace/
+*.pbxuser
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+*.xcuserstate
+
+# Build products
+build/
+Build/Products/
+*.app
+*.ipa
+*.dSYM
+*.framework
+*.xcarchive
+
+# CocoaPods (if used)
+Pods/
+*.lock
+!Pods/Target Support Files/* # Keep this directory
+!Pods/Headers/*
+!Pods/Local Podspecs/*
+!Pods/Manifest.lock
+!Pods/Podfile.lock
+!Pods/Pods.xcodeproj
+!Pods/Pods/Pods.xcodeproj
+!Pods/Pods/Target Support Files/*
+!Pods/Pods/Headers/*
+!Pods/Pods/Local Podspecs/*
+!Pods/Pods/Manifest.lock
+!Pods/Pods/Podfile.lock
+
+# Carthage (if used)
+Carthage/Build/
+Carthage/Checkouts/
+
+# Swift Package Manager (if used)
+.swiftpm/
+Package.resolved
+
+# Other build system files
+*.swp  # Swap files
+*.tmp  # Temporary files
+
+# Logs and caches
+*.log
+*.crash
+~/Library/Caches/com.apple.dt.Xcode/
+~/Library/Developer/Xcode/DerivedData/*
+
+# Sensitive information (add if applicable)
+*.p12 # Certificates
+*.mobileprovision # Provisioning profiles
+config.plist # Configuration files with secrets (consider environment variables instead)
+
+# Version control specific
+.svn
+.git/
+.hg
+
+# macOS system files
+.DS_Store
+.AppleDouble
+__MACOSX/
+
+# IDE specific files (add if using other IDEs)
+.idea/
+
+# General files to ignore
+*.swp
+*~
