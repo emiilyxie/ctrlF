@@ -9,22 +9,24 @@ import SwiftUI
 
 struct LandingView: View {
     @State private var searchText = ""
+    @State private var allItems: [String] = []
     @State private var filteredItems: [String] = []
-    @State private var allItems = ["Laptop", "Keys", "Bag", "Phone", "Notebook", "Cup", "Bottle"]
     @State private var selectedItem: String?
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
-                Text("Ctrl-F")
-                    .font(.largeTitle)
+            VStack() {
+                Text("ctrl-F")
+                    .font(.system(size: 36, weight: .bold, design: .monospaced))
                     .bold()
 
-                Text("What are you looking for (in real life)?")
-                    .font(.headline)
+                Text("find what you're looking for, in real life")
+                    .font(.system(size: 16, weight: .light, design: .monospaced))
                     .foregroundColor(.gray)
+                    .italic()
+                    .multilineTextAlignment(.center)
 
-                TextField("Search for an object...", text: $searchText, onEditingChanged: { _ in
+                TextField("search here...", text: $searchText, onEditingChanged: { _ in
                     filterItems()
                 })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -52,7 +54,11 @@ struct LandingView: View {
                 }
             }
             .padding()
+            .onAppear {
+                fetchObjectList()
+            }
         }
+        .background(Color("bgColor"))
     }
 
     private func filterItems() {
@@ -62,6 +68,16 @@ struct LandingView: View {
             filteredItems = allItems.filter { $0.lowercased().contains(searchText.lowercased()) }
         }
     }
+    
+    private func fetchObjectList() {
+           NetworkService.fetchObjectNames { objectNames in
+               DispatchQueue.main.async {
+                   self.allItems = objectNames
+                   self.filteredItems = objectNames
+                   print("📦 Objects fetched: \(objectNames)")
+               }
+           }
+       }
 }
 
 #Preview {

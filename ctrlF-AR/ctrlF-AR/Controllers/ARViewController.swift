@@ -58,7 +58,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
 
     func placeObjects() {
         guard let cameraPosition = storedFixedCameraPosition else { return }
-        sceneView.scene.rootNode.enumerateChildNodes { (node, _) in node.removeFromParentNode() }
+//        sceneView.scene.rootNode.enumerateChildNodes { (node, _) in node.removeFromParentNode() }
         
         for object in fetchedObjects {
             if let name = object["name"] as? String,
@@ -79,25 +79,30 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     }
 
     func addMarker(at position: SCNVector3, with label: String) {
-        // Ensure we are not adding the same marker twice
-        for node in sceneView.scene.rootNode.childNodes {
-            if node.name == label {  // If a node with the same name exists, return
-                print("⚠️ Node '\(label)' already exists, skipping duplicate addition.")
-                return
-            }
+        if let existingNode = sceneView.scene.rootNode.childNode(withName: label, recursively: true) {
+            existingNode.position = position  // Update position instead of re-adding
+            print("✅ Updated existing node: \(label) to \(position)")
+            
+            if let textNode = sceneView.scene.rootNode.childNode(withName: "\(label)_text", recursively: true) {
+                        textNode.position = SCNVector3(position.x, position.y + 0.2, position.z)  // Update text position
+                    print("✅ Updated text node for: \(label)")
+                }
+            return
         }
         
         let sphere = SCNSphere(radius: 0.05)
         sphere.firstMaterial?.diffuse.contents = UIColor.red
         let sphereNode = SCNNode(geometry: sphere)
         sphereNode.position = position
+        sphereNode.name = label
 
         let textGeometry = SCNText(string: label, extrusionDepth: 0.1)
         textGeometry.firstMaterial?.diffuse.contents = UIColor.white
         let textNode = SCNNode(geometry: textGeometry)
-        textNode.scale = SCNVector3(0.02, 0.02, 0.02)
+        textNode.scale = SCNVector3(0.01, 0.01, 0.01)
         textNode.position = SCNVector3(position.x, position.y + 0.2, position.z)
         textNode.constraints = [SCNBillboardConstraint()]
+        textNode.name = "\(label)_text"
 
         sceneView.scene.rootNode.addChildNode(sphereNode)
         sceneView.scene.rootNode.addChildNode(textNode)
@@ -158,10 +163,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        print("🗑 Clearing AR scene before exit")
-        sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
-            node.removeFromParentNode()
-        }
+//        print("🗑 Clearing AR scene before exit")
+//        sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
+//            node.removeFromParentNode()
+//        }
 
         print("⏹ Stopping AR session")
         sceneView.session.pause()  // Pause when leaving AR view
