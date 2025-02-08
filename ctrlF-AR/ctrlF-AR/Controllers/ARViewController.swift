@@ -79,6 +79,14 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     }
 
     func addMarker(at position: SCNVector3, with label: String) {
+        // Ensure we are not adding the same marker twice
+        for node in sceneView.scene.rootNode.childNodes {
+            if node.name == label {  // If a node with the same name exists, return
+                print("⚠️ Node '\(label)' already exists, skipping duplicate addition.")
+                return
+            }
+        }
+        
         let sphere = SCNSphere(radius: 0.05)
         sphere.firstMaterial?.diffuse.contents = UIColor.red
         let sphereNode = SCNNode(geometry: sphere)
@@ -135,5 +143,27 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
 
         print("❌ No raycast results, trying feature points...")
         return nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("🔄 Restarting AR session")
+
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = [.horizontal, .vertical]
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])  // Reset on re-entry
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print("🗑 Clearing AR scene before exit")
+        sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
+            node.removeFromParentNode()
+        }
+
+        print("⏹ Stopping AR session")
+        sceneView.session.pause()  // Pause when leaving AR view
     }
 }

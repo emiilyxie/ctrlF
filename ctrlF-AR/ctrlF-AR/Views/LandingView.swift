@@ -10,7 +10,7 @@ import SwiftUI
 struct LandingView: View {
     @State private var searchText = ""
     @State private var filteredItems: [String] = []
-    @State private var allItems = ["Laptop", "Keys", "Bag", "Phone", "Notebook"]
+    @State private var allItems = ["Laptop", "Keys", "Bag", "Phone", "Notebook", "Cup", "Bottle"]
     @State private var selectedItem: String?
 
     var body: some View {

@@ -21,7 +21,6 @@
 		AD7464402D5734DA00F1E7AE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD74643F2D5734DA00F1E7AE /* NetworkService.swift */; };
 		AD7464422D5734EF00F1E7AE /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7464412D5734EF00F1E7AE /* ObjectModel.swift */; };
 		AD7464442D57361000F1E7AE /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7464432D57361000F1E7AE /* ARView.swift */; };
-		AD7464462D57377300F1E7AE /* ARViewControllerBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7464452D57377300F1E7AE /* ARViewControllerBackup.swift */; };
 		AD7464482D57389900F1E7AE /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7464472D57389900F1E7AE /* ARViewContainer.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,7 +59,6 @@
 		AD74643F2D5734DA00F1E7AE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		AD7464412D5734EF00F1E7AE /* ObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectModel.swift; sourceTree = "<group>"; };
 		AD7464432D57361000F1E7AE /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
-		AD7464452D57377300F1E7AE /* ARViewControllerBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewControllerBackup.swift; sourceTree = "<group>"; };
 		AD7464472D57389900F1E7AE /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,7 +143,6 @@
 			children = (
 				AD74640D2D56F59200F1E7AE /* ViewController.swift */,
 				AD74643B2D5734AB00F1E7AE /* ARViewController.swift */,
-				AD7464452D57377300F1E7AE /* ARViewControllerBackup.swift */,
 				AD74643D2D5734C800F1E7AE /* QRCodeScanner.swift */,
 			);
 			path = Controllers;
@@ -311,7 +308,6 @@
 			files = (
 				AD74643A2D57344E00F1E7AE /* LandingView.swift in Sources */,
 				AD74643E2D5734C800F1E7AE /* QRCodeScanner.swift in Sources */,
-				AD7464462D57377300F1E7AE /* ARViewControllerBackup.swift in Sources */,
 				AD74640E2D56F59200F1E7AE /* ViewController.swift in Sources */,
 				AD74640A2D56F59200F1E7AE /* AppDelegate.swift in Sources */,
 				AD7464422D5734EF00F1E7AE /* ObjectModel.swift in Sources */,
