@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkService {
     static func fetchObjects(completion: @escaping ([[String: Any]]) -> Void) {
-        let url = URL(string: "http://192.168.0.101:5000/get-objects")!
+        let url = URL(string: "http://172.26.126.26:5000/get-objects")!
 
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil,
@@ -23,7 +23,7 @@ class NetworkService {
     }
     
     static func fetchObjectNames(completion: @escaping ([String]) -> Void) {
-        let urlString = "http://192.168.0.101:5000/get-objects"  // Change to correct API if needed
+        let urlString = "http://172.26.126.26:5000/get-objects"  // Change to correct API if needed
         guard let url = URL(string: urlString) else {
             print("❌ Invalid URL")
             completion([])
